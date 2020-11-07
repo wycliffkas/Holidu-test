@@ -9,18 +9,31 @@ export const formatData = (results) => {
 
 export const setDataLimit = (users, showMore) => {
   let rows = users;
-  return showMore ? rows.slice(0, 10) : rows;
+  return showMore ? rows.slice(0, 5) : rows;
 };
 
-export const fetchData = (setUsers, setAverageByCountry) => {
+export const fetchData = (
+  setUsers,
+  setAverageByCountry,
+  setAverageByGender,
+  isSubscribed
+) => {
   fetch("http://localhost:3000/api/people.json")
     .then((response) => response.json())
     .then((results) => {
-      const data = formatData(results);
-      setUsers(data);
+      if (isSubscribed) {
+        const data = formatData(results);
+        setUsers(data);
 
-      const AverageCountryData = average(data, "country");
-      setAverageByCountry(AverageCountryData);
+        const AverageCountryData = average(data, "country");
+        setAverageByCountry(AverageCountryData);
+
+        const AverageGenderData = average(data, "gender");
+        setAverageByGender(AverageGenderData);
+      }
+    })
+    .catch((error) => {
+      console.log("Error", error);
     });
 };
 
@@ -40,12 +53,12 @@ export const average = (data, type) => {
     if (type === "country") {
       return {
         country: item.country,
-        score: item.score / item.count,
+        score: Math.ceil(item.score / item.count),
       };
     } else {
       return {
         gender: item.gender,
-        score: item.score / item.count,
+        score: Math.ceil(item.score / item.count),
       };
     }
   });

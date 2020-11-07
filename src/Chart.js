@@ -1,23 +1,15 @@
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
-import Title from './Title';
+import React from "react";
+import {
+  Bar,
+  BarChart,
+  Label,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
+import Title from "./Title";
 
-// Generate Data
-function createData(country, score) {
-  return { country, score };
-}
-
-const data = [
-  createData('DE', 79),
-  createData('UK', 63),
-  createData('FR', 76),
-  createData('ES', 68),
-  createData('NL', 90),
-  createData('IT', 55),
-  createData('AU', undefined),
-];
-
-export default function Chart({data}) {
+export default function Chart({ data, countryDisplay }) {
   return (
     <React.Fragment>
       <Title>Score statistics</Title>
@@ -27,13 +19,22 @@ export default function Chart({data}) {
           margin={{
             top: 16,
             right: 16,
-            bottom: 0,
+            bottom: 20,
             left: 24,
           }}
         >
-          <XAxis dataKey="country" />
+          <XAxis dataKey={countryDisplay ? "country" : "gender"}>
+            <Label
+              dy={25}
+              angle={0}
+              position="center"
+              style={{ textAnchor: "left" }}
+            >
+              {countryDisplay ? "Country" : "Gender"}
+            </Label>
+          </XAxis>
           <YAxis>
-            <Label angle={270} position="left" style={{ textAnchor: 'middle' }}>
+            <Label angle={270} position="left" style={{ textAnchor: "middle" }}>
               Average score
             </Label>
           </YAxis>
