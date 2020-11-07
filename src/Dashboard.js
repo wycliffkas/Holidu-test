@@ -5,7 +5,6 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -15,9 +14,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import Chart from "./Chart";
-import { mainListItems, secondaryListItems } from "./listItems";
+import { MainListItems, SecondaryListItems } from "./listItems";
 import ScoreTable from "./ScoreTable";
-import { fetchData} from "./utils";
+import { fetchData } from "./utils";
 
 const drawerWidth = 240;
 
@@ -102,20 +101,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const [users, setUsers] = useState([]);
-  const [averageByCountry, setAverageByCountry]  = useState([]);
+  const [averageByCountry, setAverageByCountry] = useState([]);
+  const [averageByGender, setAverageByGender] = useState([]);
+  const [countryDisplay, setCountryDisplay] = useState(true);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
-    fetchData(setUsers, setAverageByCountry);
+    let isSubscribed = true;
+    fetchData(setUsers, setAverageByCountry, setAverageByGender, isSubscribed);
+    return () => (isSubscribed = false);
   }, []);
 
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const onSetChartDisplay = (countryDisplay) => {
+    countryDisplay ? setCountryDisplay(true) : setCountryDisplay(false);
+  };
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -162,9 +171,12 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <MainListItems />
         <Divider />
-        <List>{secondaryListItems}</List>
+        <SecondaryListItems
+          countryDisplay={countryDisplay}
+          setChartDisplay={onSetChartDisplay}
+        />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -173,7 +185,10 @@ export default function Dashboard() {
             {/* Chart */}
             <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>
-                <Chart data={averageByCountry}/>
+                <Chart
+                  countryDisplay={countryDisplay}
+                  data={countryDisplay ? averageByCountry : averageByGender}
+                />
               </Paper>
             </Grid>
             {/* Recent scores */}
