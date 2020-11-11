@@ -6,11 +6,9 @@ import ScoreTable from "./ScoreTable";
 configure({ adapter: new Adapter() });
 
 describe("<ScoreTable /> ", () => {
-
   const props = {
     users: [{ city: "Olofström", country: "SE", created_at: "2019" }],
   };
-
   const wrapper = shallow(<ScoreTable users={props} />);
 
   it('sort type should change', () => {   
@@ -28,7 +26,6 @@ describe("<ScoreTable /> ", () => {
       preventDefault() {},
       target: { value: 'first_name' }
     };
-    
     wrapper.find('select[id="filter"]').simulate('change', event);
     expect(wrapper.find('select[id="filter"]').props().value).toEqual('first_name');
   });
