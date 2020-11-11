@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Chart />  chart should render correctly 1`] = `ShallowWrapper {}`;
+
+exports[`<ListItem />  listItem should render correctly 1`] = `ShallowWrapper {}`;
