@@ -1,3 +1,4 @@
+import React from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -6,10 +7,9 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import React from "react";
 
 const useStyles = makeStyles(() => ({
-  tabEnabled: {
+  bgColor: {
     backgroundColor: "#f0eff0",
   },
 }));
@@ -40,7 +40,7 @@ export const SecondaryListItems = ({ setChartDisplay, countryDisplay }) => {
           onClick={() => {
             setChartDisplay(false);
           }}
-          className={!countryDisplay ? classes.tabEnabled : ""}
+          className={!countryDisplay ? classes.bgColor : ""}
         >
           <ListItemIcon>
             <AssignmentIcon />
@@ -52,7 +52,7 @@ export const SecondaryListItems = ({ setChartDisplay, countryDisplay }) => {
           onClick={() => {
             setChartDisplay(true);
           }}
-          className={countryDisplay ? classes.tabEnabled : ""}
+          className={countryDisplay ? classes.bgColor : ""}
         >
           <ListItemIcon>
             <AssignmentIcon />
