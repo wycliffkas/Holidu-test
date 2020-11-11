@@ -2,7 +2,7 @@ import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import React from "react";
 import Dashboard from "./Dashboard";
-import { MainListItems, SecondaryListItems } from "./ListItems";
+import { MainListItems, SecondaryListItems } from "./listItems";
 import Chart from "./Chart";
 import ScoreTable from "./ScoreTable";
 
