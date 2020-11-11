@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+
+button.ascending::after {
+  content: "👇" !important;
+  display: inline-block;
+  margin-left: 1em;
+  background-color: blue !important;
+}
+
+button.descending::after {
+  content: "☝️" !important;
+  display: inline-block;
+  margin-left: 1em;
+}
+
