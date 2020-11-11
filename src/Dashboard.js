@@ -14,7 +14,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import Chart from "./Chart";
-import { MainListItems, SecondaryListItems } from "./listItems";
+import { MainListItems, SecondaryListItems } from "./ListItems";
 import ScoreTable from "./ScoreTable";
 import { fetchData } from "./utils";
 
@@ -108,7 +108,12 @@ export default function Dashboard() {
 
   useEffect(() => {
     let isSubscribed = true;
-    fetchData(setUsers, setAverageByCountry, setAverageByGender, isSubscribed);
+    fetchData(
+      setUsers,
+      setAverageByCountry,
+      setAverageByGender,
+      isSubscribed
+    );
     return () => (isSubscribed = false);
   }, []);
 
